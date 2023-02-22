@@ -11,7 +11,7 @@
       Buat Profil Picture!
     </button>
     <img
-      v-if="profilePic !== url && this.name !== ''"
+      v-if="profilePic !== url && isImgShow"
       :src="profilePic"
       class="profile-pic"
     />
@@ -23,17 +23,20 @@ export default {
   name: 'ProfilePicGenerator',
   data() {
     return {
+      isImgShow: false,
       url: 'https://robohash.org/',
       name: '',
       profilePic: '',
     };
   },
   methods: {
-    async getProfilePicture() {
+    getProfilePicture() {
       try {
         this.profilePic = `${this.url}${this.name}.png`;
+        this.isImgShow = true;
       } catch (error) {
         console.log(error);
+        this.isImgShow = false;
       }
     },
   },
