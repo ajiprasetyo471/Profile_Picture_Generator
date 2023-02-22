@@ -6,7 +6,6 @@
       v-model="name"
       placeholder="Ketik nama Anda..."
       v-on:keyup.enter="getProfilePicture"
-      onke
     />
     <button @click="getProfilePicture" class="create-pic">
       Buat Profil Picture!
