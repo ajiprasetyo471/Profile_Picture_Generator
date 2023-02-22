@@ -11,7 +11,11 @@
     <button @click="getProfilePicture" class="create-pic">
       Buat Profil Picture!
     </button>
-    <img :src="profilePic" class="profile-pic" />
+    <img
+      v-if="profilePic !== url && this.name !== ''"
+      :src="profilePic"
+      class="profile-pic"
+    />
   </div>
 </template>
 
@@ -20,13 +24,18 @@ export default {
   name: 'ProfilePicGenerator',
   data() {
     return {
+      url: 'https://robohash.org/',
       name: '',
       profilePic: '',
     };
   },
   methods: {
-    getProfilePicture() {
-      this.profilePic = `https://robohash.org/${this.name || ''}`;
+    async getProfilePicture() {
+      try {
+        this.profilePic = `${this.url}${this.name}.png`;
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
@@ -34,7 +43,7 @@ export default {
 
 <style lang="scss" scoped>
 .card-container {
-  width: 50vw;
+  width: 40vw;
   height: 80vh;
   display: flex;
   flex-direction: column;
@@ -68,7 +77,7 @@ export default {
   }
 
   .create-pic:active {
-    outline: 3px solid #84d3a2;
+    outline: 4px solid #84d3a2;
   }
 
   .profile-pic {
